@@ -246,7 +246,7 @@ spec:
           - name: node.roles
             value: "[]"
           - name: network.publish_host
-            value: coordinate.demo.svc.cluster.local
+            value: coordinate.elasticsearch-demo-app.svc.cluster.local
           - name: network.host
             value: _site_
           resources: {}
@@ -336,7 +336,7 @@ data:
     node.name: es-master00
     node.roles: [ master, data ]
     network.host: _site_
-    network.publish_host: es-master00.demo.svc.cluster.local
+    network.publish_host: es-master00.elasticsearch-demo-app.svc.cluster.local
     discovery.seed_hosts: ["es-master00"]
     cluster.initial_master_nodes: ["es-master00"]
     path.data: /srv/elasticsearch

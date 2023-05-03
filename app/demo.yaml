@@ -428,7 +428,7 @@ metadata:
   labels:
     app.kubernetes.io/part-of: elasticsearch
 spec:
-  running: true
+  runStrategy: Manual
   template:
     metadata:
       annotations:

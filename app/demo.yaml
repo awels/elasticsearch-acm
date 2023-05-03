@@ -1,0 +1,530 @@
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: letsencrypt
+  namespace: demo
+---
+apiVersion: v1
+data:
+  demo.id_rsa: LS0tLS1CRUdJTiBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0KYjNCbGJuTnphQzFyWlhrdGRqRUFBQUFBQkc1dmJtVUFBQUFFYm05dVpRQUFBQUFBQUFBQkFBQUJsd0FBQUFkemMyZ3RjbgpOaEFBQUFBd0VBQVFBQUFZRUEwTkFDVUpVNzRJa25HRS92VzJWSkFYSjhvTitPbzVHb05kSXJNV2xPYjh2RXh2U2Jmdlk4CkVERG10dFVMbzlGRDgrUjhXMXpRYnRwRWExUHRpbENSSGdtVlA0Y0NnYmwwV0ZpRFE5ZGRNaVFra0dTcVVJWWcvNEpyV1AKQWU2VDV5VWtxMW4vbnVPMS9GdzBZcmdBVDhHNlN0cnluWThlOVdteEJrRXloNk1OaUY2YzRCZU9wTzlHS2lpS01HNzFORgpRcmdoRUp3a1VzWm80TmdQSm1FSHM5R2UzRnZTZlMxR3lPeWJqcUJQVy9WTjk2QTJybEhJOTBJVU03YlpaVW9GZEptdWZFCklXdnBJMGRmdTlVYTFRcXlQdWZqNkQyNTVZZWZ5ZWpZOFJGWWJ2YTUzWkdxYTJPMElXd0Rud3FvSytGek4rWWNiY2hiUysKdW1EWXVMMFJLSnZaLzAyVjBDTk1PcUkwWmMzZFhlSjJ1Vk5TSWljUGdFdDdRREY1NllBU0ZVZFpyNXNuZkRoZGxSMHRvagpqcFBRS1FyUDFicXVaTnROSEJObzNxYmJxYVRTMmtnOXRVNDZTdWdjK3RKRno2OC9uSTBNTDFQSzdCUEQvZVROdUpBNEZjCjdhMk44aWhCc3Z0WlFVYURHbHFXeUpvZHdlUzBDOTd5azlHNUFjVmhBQUFGa0J3SjY4a2NDZXZKQUFBQUIzTnphQzF5YzIKRUFBQUdCQU5EUUFsQ1ZPK0NKSnhoUDcxdGxTUUZ5ZktEZmpxT1JxRFhTS3pGcFRtL0x4TWIwbTM3MlBCQXc1cmJWQzZQUgpRL1BrZkZ0YzBHN2FSR3RUN1lwUWtSNEpsVCtIQW9HNWRGaFlnMFBYWFRJa0pKQmtxbENHSVArQ2ExandIdWsrY2xKS3RaCi81N2p0ZnhjTkdLNEFFL0J1a3JhOHAyUEh2VnBzUVpCTW9lakRZaGVuT0FYanFUdlJpb29pakJ1OVRSVUs0SVJDY0pGTEcKYU9EWUR5WmhCN1BSbnR4YjBuMHRSc2pzbTQ2Z1QxdjFUZmVnTnE1UnlQZENGRE8yMldWS0JYU1pybnhDRnI2U05IWDd2VgpHdFVLc2o3bjQrZzl1ZVdIbjhubzJQRVJXRzcydWQyUnFtdGp0Q0ZzQTU4S3FDdmhjemZtSEczSVcwdnJwZzJMaTlFU2liCjJmOU5sZEFqVERxaU5HWE4zVjNpZHJsVFVpSW5ENEJMZTBBeGVlbUFFaFZIV2ErYkozdzRYWlVkTGFJNDZUMENrS3o5VzYKcm1UYlRSd1RhTjZtMjZtazB0cElQYlZPT2tyb0hQclNSYyt2UDV5TkRDOVR5dXdUdy8za3piaVFPQlhPMnRqZklvUWJMNwpXVUZHZ3hwYWxzaWFIY0hrdEF2ZThwUFJ1UUhGWVFBQUFBTUJBQUVBQUFHQUNIaE0ybWREUWl5dUNQUVh4R3IyVnMyd1g4CnpScExHSzA0Rmo2U0dFREtXRStpdXFod1dHa3RnNDg0cEVGUEFFYnB5Q1dDa0tvZ1I1S1ZWWDJhTENVQ2Z1c0RYOHZ3cisKWjNyOCtyL1RTRU81Qy9aWlc0elA3UzFRSExwdUMrTlJrSG1oVVF6bFFlNmZsS0tBV2VBRWplWi9JN29jZlFFZitvZzVWdgpidkJlamRLRit5ZXV6STA4R1FldDhLQlU1K1ltSWFUVDh0ZTFkbG9sYUJQdEJKYkxJckJ5Q0pDRFRSbmVMTnZkcE9LRysvCkt0L2Z6VVd2VTRBN0FPSUEyQi8wSFVXTVJGKzV0bm92N3FQOEgramR4UHFXV002YlpBcC84dGVzbEFIblNyYzVHdEZPU0sKS2RrRy9wdlh1VmRiWEpOc1FRcGIvekRLVVBwa1BBMzRxZE5qOHRMaWlPOW1pMktEL0Z4Q1J2K0FnTUdpWVpqVlNPdjZCNgo4YnVPd3RDdTZaWlY3YVRiZzRQZE1LQWwxK0hzdnZlTkYzMEx1U0dHemF3RHlXejdSUFNnWGp5eVdyQ2sxZGRKcVY0WnlDCmZETE51U0VYbjREWE1EVHVIWHZVTXVpTVc5b3NPOXUzenlmNjhUa0hjaUgxTmptUWhmNHNTQkhZRi9IeEpSeGhTRkFBQUEKd0VQN3EyUUlaMVl2WGNlbFByZG1wU2dQUWlXWDM5VFFwMEhwTHVIanFZZXJtOWFQb0lhZDlYcksrb0h0MnJ1N3RNMEYvZgpsbmh2M3pkQ0xsMXd2RC9SWi9OZFBObXdQMjE1VVFCU2RQS2w5VEVUakNOUmJQQ0hxSGFUS3FYck1heEtKQVpoY01MM0p1CnVWVTJXa2NQZTlqWmdFdDVZbEg5NERvWHVWNjByVG5yd29sckpZYld4UGcxdnQxL1BSZWx1by9wc2tHamc2SG4zUUFLM0UKWWdwUU1IbWU2ZUV5bHorenRDOCtQSGlTUTViNXQ2YkY2dVd2aTAxYnZpZjhrdUZ3QUFBTUVBNmpSdVYrMzlmeEhFMEpyWgpnSWVUV0ltVFFxbWk5MFYzZW5CWmM5WGdtM0tpdU83OFUrZlRGdGQxeVhjNjlXZWR2eWJtUVk2djdYbDNDRDMrVTJRaXNJClRpMTFkc3BybUt4Vm1LUGZDYkRBWWI1eUh4Qi9hWlNiM0RSYWE2WXpWekhIVHJwQVpZSkpJQ1ZwVlgxMFl1ZEY0U1dwT28KcjIvZnlqempWVlNaUGMzQ0lvVUJjRkdtN2RnSlFRODdicXNibUZUdG1FZUMwNE9aTUc0eHpsTVlqOE9hL2tlK3p4OEVuUApYVUFna2UrMWp3SGhGOHlDY3lNbVlnSnA4Ri9Sd0xBQUFBd1FEa1BxVnRDVlFoOG1yQVVaR04xWHpRNGlJbkNyTWVaU1JvCmRMdGpnZnJuOFBFOWdtMENQTHZBQm1UK21BM1RuQlNqYlF4SVdmN0RLOCs4MmRmOStEUjJEK1QwZjNFeXNIdDd0ZTdESlcKQzBxZm44MWJLUVJwcDMrKzJoUVRrVnJFT25FaGx1UnoySitwVjl4STVOYlJtRnIwNDdXZ09KZTRIdGhTaFhtWjJISHFJRwp5K1B5SjFaNDRwNHhKRXM2bWhZZ0o0czQzU1Ewem9HVmc4MkQ3dlNFYUN2QTJSa0NmRERzWlhIR0w4R05reXRMenUrME5KCnhVem9CalBKR28yOE1BQUFBVllYZGxiSE5BWVhkbGJITXVkMlZzY3k1b2IyMWxBUUlEQkFVRwotLS0tLUVORCBPUEVOU1NIIFBSSVZBVEUgS0VZLS0tLS0K
+kind: Secret
+metadata:
+  creationTimestamp: null
+  name: id-rsa
+  namespace: demo
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: install-scripts
+  namespace: demo
+data:
+  elasticsearch.sh: |-
+    cat << EOF > /etc/yum.repos.d/elastic.repo
+    [elasticsearch]
+    name=Elasticsearch repository for 8.x packages
+    baseurl=https://artifacts.elastic.co/packages/8.x/yum
+    gpgcheck=1
+    gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled=0
+    autorefresh=1
+    type=rpm-md
+    EOF
+    update-crypto-policies --set DEFAULT:SHA1
+    rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    dnf install -y --enablerepo=elasticsearch elasticsearch-8.7.0
+    update-crypto-policies --set DEFAULT
+    systemctl daemon-reload
+    mkdir -p /srv/elasticsearch/config
+    mkdir -p /srv/elasticsearch/data
+    chown elasticsearch:elasticsearch /srv/elasticsearch -R
+    mkfs.xfs /dev/vdc
+    config=$(ls -1 /dev/disk/by-id/scsi-SATA*00yaml)
+    mount $config /srv/elasticsearch/config
+    mount /dev/vdc /srv/elasticsearch/data
+    echo "$config /srv/elasticsearch/config xfs defaults 0 0" >> /etc/fstab
+    echo '/dev/vdc /srv/elasticsearch/data   xfs defaults 0 0' >> /etc/fstab
+    mv /etc/elasticsearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.yml.org
+    mv /etc/elasticsearch/jvm.options       /etc/elasticsearch/jvm.options.org
+    ln -sf /srv/elasticsearch/config/elasticsearch.conf /etc/elasticsearch/elasticsearch.yml
+    ln -sf /srv/elasticsearch/config/jvm.options        /etc/elasticsearch/jvm.options
+    systemctl enable elasticsearch --now
+  system.sh: |-
+    cert=$(ls -1 /dev/disk/by-id/scsi-SATA*00cert)
+    mount $cert /etc/cockpit/ws-certs.d/
+    if [ -f "/etc/cockpit/ws-certs.d/tls.crt" ]; then echo "$cert /etc/cockpit/ws-certs.d/ xfs defaults 0 0" >> /etc/fstab;
+    else umount $cert; fi
+    systemctl enable cockpit.socket --now
+immutable: false
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: es-master-svc
+  namespace: demo
+spec:
+  ports:
+    - name: elasticsearch
+      protocol: TCP
+      port: 9200
+      targetPort: 9200
+  selector:
+    app: elasticsearch
+    elasticsearch: master
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: elasticsearch
+  namespace: demo
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
+  labels:
+    app: elasticsearch
+    role: api
+spec:
+  host: elasticsearch.apps.kvcluster1.apps.development.wels.home
+  to:
+    kind: Service
+    name: es-master-svc
+  port:
+    targetPort: elasticsearch
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: demo
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"coordinate"}]'
+  labels:
+    app.kubernetes.io/part-of: kibana
+    app.openshift.io/runtime: elastic
+    app.openshift.io/name: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      # securityContext:
+      #   seccompProfile:
+      #     type: RuntimeDefault
+      containers:
+        - name: kibana
+          image: docker.elastic.co/kibana/kibana:8.7.0
+          ports:
+            - containerPort: 5601
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   runAsNonRoot: true
+          #   capabilities:
+          #     drop:
+          #       - ALL
+          env:
+            - name: ELASTICSEARCH_HOSTS
+              value: http://coordinate:9200
+            - name: SERVER_PUBLICBASEURL
+              value: https://kibana-demo.apps.kvcluster1.apps.development.wels.home
+            - name: SERVER_NAME
+              value: kibana-demo.apps.kvcluster1.apps.development.wels.home
+          resources: {}
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: demo
+spec:
+  ports:
+    - name: ui
+      port: 5601
+      targetPort: 5601
+  selector:
+    app: kibana
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: kibana
+  namespace: demo
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
+spec:
+  host: kibana.apps.kvcluster1.apps.development.wels.home
+  to:
+    kind: Service
+    name: kibana
+  port:
+    targetPort: ui
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: coordinate
+  namespace: demo
+spec:
+  ports:
+    - name: elasticsearch
+      port: 9200
+      targetPort: 9200
+    - name: elasticsearch-discovery
+      port: 9300
+      targetPort: 9300
+  selector:
+    app: elasticsearch
+    elasticsearch: coordinate
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coordinate
+  namespace: demo
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","name":"es-master00"}]'
+  labels:
+    app.kubernetes.io/part-of: elasticsearch
+    app.openshift.io/runtime: elastic
+    app.openshift.io/name: coordinate
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+      elasticsearch: coordinate
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+        elasticsearch: coordinate
+    spec:
+      # securityContext:
+      #   seccompProfile:
+      #     type: RuntimeDefault
+      containers:
+        - name: coordinate
+          image: docker.elastic.co/elasticsearch/elasticsearch:8.7.0-amd64
+          ports:
+            - containerPort: 9200
+            - containerPort: 9300
+          # securityContext:
+          #   allowPrivilegeEscalation: false
+          #   runAsNonRoot: true
+          #   capabilities:
+          #     drop:
+          #       - ALL
+          env:
+          - name: ES_JAVA_OPTS
+            value: -Xms1g -Xmx1g
+          - name: node.name
+            value: coordinate
+          - name: cluster.name
+            value: demo
+          - name: xpack.security.enabled
+            value: "false"
+          - name: xpack.security.transport.ssl.enabled
+            value: "false"
+          - name: xpack.security.http.ssl.enabled
+            value: "false"
+          - name: discovery.seed_hosts
+            value: es-master00
+          - name: node.roles
+            value: "[]"
+          - name: network.publish_host
+            value: coordinate.demo.svc.cluster.local
+          - name: network.host
+            value: _site_
+          resources: {}
+      restartPolicy: Always
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: coordinate
+  namespace: demo
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
+  labels:
+    app: elasticsearch
+    role: coordinate
+spec:
+  host: coordinate.apps.kvcluster1.apps.development.wels.home
+  to:
+    kind: Service
+    name: coordinate
+  port:
+    targetPort: elasticsearch
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: ubi9-install
+  namespace: demo
+data:
+  install.sh: |-
+    mkdir /root/.ssh/
+    cp /mnt/demo.id_rsa /root/.ssh/id_rsa
+    chmod 700 /root/.ssh/
+    chmod 0400 /root/.ssh/id_rsa
+    yum install -y openssh-clients rsync
+    /bin/sh
+immutable: false
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: ubi9
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"kibana"}]'
+  labels:
+    app: ubi9
+    app.kubernetes.io/part-of: utility
+    app.openshift.io/runtime: redhat
+    app.openshift.io/name: utility
+  namespace: demo
+spec:
+  volumes:
+    - configMap:
+        name: ubi9-install
+      name: ubi9-install
+    - secret:
+        secretName: id-rsa
+      name: id-rsa
+  containers:
+    - name: ubi9
+      image: 'registry.access.redhat.com/ubi9/ubi'
+      command: ["/bin/sh"]
+      args: ["/usr/local/bin/install.sh"]
+      stdin: true
+      tty: true
+      volumeMounts:
+        - name: ubi9-install
+          readOnly: true
+          mountPath: /usr/local/bin/install.sh
+          subPath: install.sh
+        - name: id-rsa
+          readOnly: true
+          mountPath: /mnt/
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: es-master00-conf
+  namespace: demo
+data:
+  elasticsearch.conf: |-
+    cluster.name: demo
+    node.name: es-master00
+    node.roles: [ master, data ]
+    network.host: _site_
+    network.publish_host: es-master00.demo.svc.cluster.local
+    discovery.seed_hosts: ["es-master00"]
+    cluster.initial_master_nodes: ["es-master00"]
+    path.data: /srv/elasticsearch
+    path.logs: /var/log/elasticsearch
+    xpack.security.enabled: false
+    xpack.security.transport.ssl.enabled: false
+    xpack.security.http.ssl.enabled: false
+  jvm.options: |-
+    -Xms1024m
+    -Xmx1024m
+    -XX:+DisableExplicitGC
+    -XX:+AlwaysPreTouch
+    -server
+    -Djava.awt.headless=true
+    -Dfile.encoding=UTF-8
+    -Djna.nosys=true
+    -Djdk.io.permissionsUseCanonicalPath=true
+    -Dio.netty.noUnsafe=true
+    -Dio.netty.noKeySetOptimization=true
+    -Dlog4j.shutdownHookEnabled=false
+    -Dlog4j2.disable.jmx=true
+    -Dlog4j.skipJansi=true
+    -XX:+HeapDumpOnOutOfMemoryError
+immutable: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: es-master00
+  namespace: demo
+spec:
+  selector:
+    node: es-master00
+  ports:
+    - name: elasticsearch
+      protocol: TCP
+      port: 9200
+      targetPort: 9200
+    - name: elasticsearch-discovery
+      protocol: TCP
+      port: 9300
+      targetPort: 9300
+    - name: ssh
+      protocol: TCP
+      port: 22
+      targetPort: 22
+    - name: cockpit
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+    name: es-master00-data
+    namespace: demo
+spec:
+    preallocation: false
+    source:
+        blank: {}
+    storage:
+        resources:
+            requests:
+                storage: 10Gi
+    storageClassName: lvms-vg1
+---
+apiVersion: cdi.kubevirt.io/v1beta1
+kind: DataVolume
+metadata:
+    name: es-master00
+    namespace: demo
+spec:
+    preallocation: false
+    sourceRef:
+        kind: DataSource
+        name: centos-stream9
+        namespace: openshift-virtualization-os-images
+    storage:
+        resources:
+            requests:
+                storage: 10Gi
+    storageClassName: lvms-vg1
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: es-master00
+  namespace: demo
+  labels:
+    app.kubernetes.io/part-of: elasticsearch
+spec:
+  running: true
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/os: rhel9
+        vm.kubevirt.io/workload: server
+      labels:
+        app: elasticsearch
+        node: es-master00
+        elasticsearch: master
+    spec:
+      domain:
+        cpu:
+          cores: 2
+          sockets: 1
+          threads: 2
+        devices:
+          disks:
+            - bootOrder: 1
+              disk:
+                bus: virtio
+              name: rootdisk
+            - bootOrder: 2
+              disk:
+                bus: virtio
+              name: cloudinitdisk
+            - disk:
+                bus: sata
+              name: elasticsearch-yaml
+              serial: 00yaml
+            - disk:
+                bus: sata
+              name: install-scripts
+              serial: 0000sh
+            - disk:
+                bus: sata
+              name: letsencrypt
+              serial: 00cert
+            - disk:
+                bus: virtio
+              name: data
+          interfaces:
+            - masquerade: {}
+              model: virtio
+              name: default
+        resources:
+          requests:
+            memory: 2Gi
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: es-master00
+          name: rootdisk
+        - dataVolume:
+            name: es-master00-data
+          name: data
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              hostname: es-master00
+              runcmd: 
+                - mount /dev/disk/by-id/scsi-SATA*0000sh /mnt/
+                - bash /mnt/system.sh
+                - bash /mnt/elasticsearch.sh
+                - umount /mnt
+              user: elasticsearch
+              password: redhat
+              chpasswd: { expire: False }
+              ssh_authorized_keys:
+               - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDQ0AJQlTvgiScYT+9bZUkBcnyg346jkag10isxaU5vy8TG9Jt+9jwQMOa21Quj0UPz5HxbXNBu2kRrU+2KUJEeCZU/hwKBuXRYWIND110yJCSQZKpQhiD/gmtY8B7pPnJSSrWf+e47X8XDRiuABPwbpK2vKdjx71abEGQTKHow2IXpzgF46k70YqKIowbvU0VCuCEQnCRSxmjg2A8mYQez0Z7cW9J9LUbI7JuOoE9b9U33oDauUcj3QhQzttllSgV0ma58Qha+kjR1+71RrVCrI+5+PoPbnlh5/J6NjxEVhu9rndkaprY7QhbAOfCqgr4XM35hxtyFtL66YNi4vREom9n/TZXQI0w6ojRlzd1d4na5U1IiJw+AS3tAMXnpgBIVR1mvmyd8OF2VHS2iOOk9ApCs/Vuq5k200cE2jeptuppNLaSD21TjpK6Bz60kXPrz+cjQwvU8rsE8P95M24kDgVztrY3yKEGy+1lBRoMaWpbImh3B5LQL3vKT0bkBxWE= awels@awels.wels.home
+          name: cloudinitdisk
+        - configMap:
+            name: es-master00-conf
+          name: elasticsearch-yaml
+        - configMap:
+            name: install-scripts
+          name: install-scripts
+        - secret:
+            secretName: letsencrypt
+          name: letsencrypt
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: es-master00
+  namespace: demo
+spec:
+  host: es-master00.apps.kvcluster1.apps.development.wels.home
+  to:
+    kind: Service
+    name: es-master00
+  port:
+    targetPort: cockpit
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None

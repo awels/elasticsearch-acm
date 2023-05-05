@@ -1,0 +1,37 @@
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: es-master00
+  namespace: demo
+spec:
+  sourcePVC: es-master00
+  trigger:
+    # Replicate every 5 minutes
+    schedule: "*/5 * * * *"
+  rsync:
+    # The name of the Secret we just created
+    sshKeys: volsync-rsync-dst-src-ssh
+    # The LoadBalancer address from the ReplicationDestination
+    address: 192.168.1.36
+    copyMethod: Snapshot
+    storageClassName: lvms-vg1
+    volumeSnapshotClassName: lvms-vg1
+---
+apiVersion: volsync.backube/v1alpha1
+kind: ReplicationSource
+metadata:
+  name: es-master00-data
+  namespace: demo
+spec:
+  sourcePVC: es-master00-data
+  trigger:
+    # Replicate every 5 minutes
+    schedule: "*/5 * * * *"
+  rsync:
+    # The name of the Secret we just created
+    sshKeys: volsync-rsync-dst-src-ssh
+    # The LoadBalancer address from the ReplicationDestination
+    address: 192.168.1.37
+    copyMethod: Snapshot
+    storageClassName: lvms-vg1
+    volumeSnapshotClassName: lvms-vg1

@@ -289,8 +289,8 @@ data:
     /bin/sh
 immutable: false
 ---
-apiVersion: v1
-kind: Pod
+apiVersion: apps/v1
+kind: Deployment
 metadata:
   name: ubi9
   annotations:
@@ -302,35 +302,44 @@ metadata:
     app.openshift.io/name: utility
   namespace: demo
 spec:
-  volumes:
-    - configMap:
-        name: ubi9-install
-      name: ubi9-install
-    - secret:
-        secretName: id-rsa
-      name: id-rsa
-  containers:
-    - name: ubi9
-      image: 'registry.access.redhat.com/ubi9/ubi'
-      command: ["/bin/sh"]
-      args: ["/usr/local/bin/install.sh"]
-      stdin: true
-      tty: true
-      imagePullPolicy: IfNotPresent
-      terminationMessagePath: /dev/termination-log
-      terminationMessagePolicy: File
-      securityContext:
-          capabilities:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: ubi9
+  template:
+    metadata:
+      labels:
+        app: ubi9
+    spec:
+      volumes:
+        - configMap:
+            name: ubi9-install
+          name: ubi9-install
+        - secret:
+            secretName: id-rsa
+          name: id-rsa
+      containers:
+        - name: ubi9
+          image: 'registry.access.redhat.com/ubi9/ubi'
+          command: ["/bin/sh"]
+          args: ["/usr/local/bin/install.sh"]
+          stdin: true
+          tty: true
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          securityContext:
+            capabilities:
               drop:
               - MKNOD
-      volumeMounts:
-        - name: ubi9-install
-          readOnly: true
-          mountPath: /usr/local/bin/install.sh
-          subPath: install.sh
-        - name: id-rsa
-          readOnly: true
-          mountPath: /mnt/
+          volumeMounts:
+          - name: ubi9-install
+            readOnly: true
+            mountPath: /usr/local/bin/install.sh
+            subPath: install.sh
+          - name: id-rsa
+            readOnly: true
+            mountPath: /mnt/
 ---
 apiVersion: v1
 kind: ConfigMap

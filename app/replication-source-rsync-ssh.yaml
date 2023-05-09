@@ -2,7 +2,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: es-master00
-  namespace: demo
+  namespace: elasticsearch-demo-app
 spec:
   sourcePVC: es-master00
   trigger:
@@ -21,7 +21,7 @@ apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
   name: es-master00-data
-  namespace: demo
+  namespace: elasticsearch-demo-app
 spec:
   sourcePVC: es-master00-data
   trigger:

@@ -410,6 +410,8 @@ kind: DataVolume
 metadata:
     name: es-master00-data
     namespace: elasticsearch-demo-app
+    annotations:
+      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
 spec:
     preallocation: false
     source:
@@ -418,13 +420,14 @@ spec:
         resources:
             requests:
                 storage: 10Gi
-    storageClassName: lvms-vg1
 ---
 apiVersion: cdi.kubevirt.io/v1beta1
 kind: DataVolume
 metadata:
     name: es-master00
     namespace: elasticsearch-demo-app
+    annotations:
+      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
 spec:
     preallocation: false
     sourceRef:
@@ -435,7 +438,6 @@ spec:
         resources:
             requests:
                 storage: 10Gi
-    storageClassName: lvms-vg1
 ---
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine

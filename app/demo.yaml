@@ -410,11 +410,6 @@ kind: DataVolume
 metadata:
     name: es-master00-data
     namespace: elasticsearch-demo-app
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-options: Delete=false
-      argocd.argoproj.io/sync-options: Prune=false
-      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
 spec:
     preallocation: false
     source:
@@ -429,11 +424,6 @@ kind: DataVolume
 metadata:
     name: es-master00
     namespace: elasticsearch-demo-app
-    annotations:
-      argocd.argoproj.io/compare-options: IgnoreExtraneous
-      argocd.argoproj.io/sync-options: Delete=false
-      argocd.argoproj.io/sync-options: Prune=false
-      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
 spec:
     preallocation: false
     sourceRef:

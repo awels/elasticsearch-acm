@@ -412,6 +412,7 @@ metadata:
     namespace: elasticsearch-demo-app
     annotations:
       cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
+      argocd.argoproj.io/sync-options: Delete=false 
 spec:
     preallocation: false
     source:
@@ -428,6 +429,7 @@ metadata:
     namespace: elasticsearch-demo-app
     annotations:
       cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
+      argocd.argoproj.io/sync-options: Delete=false
 spec:
     preallocation: false
     sourceRef:

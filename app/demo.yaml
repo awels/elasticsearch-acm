@@ -410,6 +410,8 @@ kind: DataVolume
 metadata:
     name: es-master00-data
     namespace: elasticsearch-demo-app
+    annotations:
+      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
 spec:
     preallocation: false
     source:
@@ -424,6 +426,8 @@ kind: DataVolume
 metadata:
     name: es-master00
     namespace: elasticsearch-demo-app
+    annotations:
+      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
 spec:
     preallocation: false
     sourceRef:

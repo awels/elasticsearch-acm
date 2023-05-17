@@ -1,0 +1,15 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: elasticsearch-demo-app
+spec:
+  template:
+    spec:
+      containers:
+        - name: kibana
+          env:
+            - name: SERVER_PUBLICBASEURL
+              value: https://kibana-demo.apps.kvcluster2.apps.development.wels.home
+            - name: SERVER_NAME
+              value: kibana-demo.apps.kvcluster2.apps.development.wels.home

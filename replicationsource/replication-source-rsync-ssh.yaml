@@ -12,7 +12,7 @@ spec:
     # The name of the Secret we just created
     sshKeys: volsync-rsync-dst-src-ssh
     # The LoadBalancer address from the ReplicationDestination
-    address: 192.168.1.37
+    address: 192.168.1.36
     copyMethod: Snapshot
     storageClassName: lvms-vg1
     volumeSnapshotClassName: lvms-vg1
@@ -31,7 +31,7 @@ spec:
     # The name of the Secret we just created
     sshKeys: volsync-rsync-dst-src-ssh
     # The LoadBalancer address from the ReplicationDestination
-    address: 192.168.1.36
+    address: 192.168.1.37
     copyMethod: Snapshot
     storageClassName: lvms-vg1
     volumeSnapshotClassName: lvms-vg1

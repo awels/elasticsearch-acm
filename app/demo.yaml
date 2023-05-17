@@ -405,40 +405,6 @@ spec:
       port: 9090
       targetPort: 9090
 ---
-apiVersion: cdi.kubevirt.io/v1beta1
-kind: DataVolume
-metadata:
-    name: es-master00-data
-    namespace: elasticsearch-demo-app
-    annotations:
-      argocd.argoproj.io/sync-options: Delete=false 
-spec:
-    preallocation: false
-    source:
-        blank: {}
-    storage:
-        resources:
-            requests:
-                storage: 10Gi
----
-apiVersion: cdi.kubevirt.io/v1beta1
-kind: DataVolume
-metadata:
-    name: es-master00
-    namespace: elasticsearch-demo-app
-    annotations:
-      argocd.argoproj.io/sync-options: Delete=false
-spec:
-    preallocation: false
-    sourceRef:
-        kind: DataSource
-        name: centos-stream9
-        namespace: openshift-virtualization-os-images
-    storage:
-        resources:
-            requests:
-                storage: 10Gi
----
 apiVersion: kubevirt.io/v1
 kind: VirtualMachine
 metadata:
@@ -447,6 +413,31 @@ metadata:
   labels:
     app.kubernetes.io/part-of: elasticsearch
 spec:
+  dataVolumeTemplates:
+  - metadata:
+      name: es-master00
+      namespace: elasticsearch-demo-app
+    spec:
+      preallocation: false
+      sourceRef:
+          kind: DataSource
+          name: centos-stream9
+          namespace: openshift-virtualization-os-images
+      storage:
+          resources:
+              requests:
+                  storage: 10Gi
+  - metadata:
+      name: es-master00-data
+      namespace: elasticsearch-demo-app
+    spec:
+      preallocation: false
+      source:
+          blank: {}
+      storage:
+          resources:
+              requests:
+                  storage: 10Gi
   running: true
   template:
     metadata:

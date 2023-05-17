@@ -411,7 +411,6 @@ metadata:
     name: es-master00-data
     namespace: elasticsearch-demo-app
     annotations:
-      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
       argocd.argoproj.io/sync-options: Delete=false 
 spec:
     preallocation: false
@@ -428,7 +427,6 @@ metadata:
     name: es-master00
     namespace: elasticsearch-demo-app
     annotations:
-      cdi.kubevirt.io/storage.deleteAfterCompletion: "false"
       argocd.argoproj.io/sync-options: Delete=false
 spec:
     preallocation: false

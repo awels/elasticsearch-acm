@@ -85,7 +85,7 @@ metadata:
     app: elasticsearch
     role: api
 spec:
-  host: elasticsearch.apps.kvcluster1.apps.development.wels.home
+  host: elasticsearch.apps.development.wels.home
   to:
     kind: Service
     name: es-master-svc
@@ -135,9 +135,9 @@ spec:
             - name: ELASTICSEARCH_HOSTS
               value: http://coordinate:9200
             - name: SERVER_PUBLICBASEURL
-              value: https://kibana-demo.apps.kvcluster1.apps.development.wels.home
+              value: https://kibana-demo.apps.development.wels.home
             - name: SERVER_NAME
-              value: kibana-demo.apps.kvcluster1.apps.development.wels.home
+              value: kibana-demo.apps.development.wels.home
           resources: {}
       restartPolicy: Always
 ---
@@ -162,7 +162,7 @@ metadata:
   annotations:
     cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
 spec:
-  host: kibana.apps.kvcluster1.apps.development.wels.home
+  host: kibana.apps.development.wels.home
   to:
     kind: Service
     name: kibana
@@ -263,7 +263,7 @@ metadata:
     app: elasticsearch
     role: coordinate
 spec:
-  host: coordinate.apps.kvcluster1.apps.development.wels.home
+  host: coordinate.apps.development.wels.home
   to:
     kind: Service
     name: coordinate
@@ -528,7 +528,7 @@ metadata:
   name: es-master00
   namespace: elasticsearch-demo-app
 spec:
-  host: es-master00.apps.kvcluster1.apps.development.wels.home
+  host: es-master00.apps.development.wels.home
   to:
     kind: Service
     name: es-master00

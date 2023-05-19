@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: generate-elastic-data
+spec:
+  containers:
+  - image: quay.io/awels/elastic-generate-data:latest
+    env:
+    - name: ES_NODE
+      value: "coordinate.apps.development.wels.home"
+    - name: DATA_RATE
+      value: "1"
+    - name: DATA_SIZE
+      value: "5"
+    - name: DATA_BATCH
+      value: "10"
+    imagePullPolicy: IfNotPresent
+    name: generate-data
+

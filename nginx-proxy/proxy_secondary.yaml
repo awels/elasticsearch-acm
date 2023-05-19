@@ -1,0 +1,213 @@
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: coordinate
+  namespace: elasticsearch-demo-app
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
+  labels:
+    app: elasticsearch
+    role: api
+spec:
+  host: coordinate.apps.development.wels.home
+  to:
+    kind: Service
+    name: coordinate-nginx-proxy
+  port:
+    targetPort: https
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: coordinate-nginx-proxy
+  namespace: elasticsearch-demo-app
+spec:
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8080
+  selector:
+    app: coordinate-nginx-proxy
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: coordinate-nginx-config
+  namespace: elasticsearch-demo-app
+data:
+  nginx.conf: |-
+    server {
+        listen 8080;
+        server_name coordinate.apps.development.wels.home;
+
+        location / {
+            proxy_http_version 1.1;
+            proxy_ssl_verify       off;
+            proxy_ssl_server_name on;
+            proxy_pass https://coordinate.apps.kvcluster2.apps.development.wels.home:443/;
+        }
+    }
+immutable: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coordinate-nginx-proxy
+  namespace: elasticsearch-demo-app
+  labels:
+    app: coordinate-nginx-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: coordinate-nginx-proxy
+  template:
+    metadata:
+      labels:
+        app: coordinate-nginx-proxy
+    spec:
+      volumes:
+        - configMap:
+            name: coordinate-nginx-config
+          name: nginx-config
+        - name: logs
+          persistentVolumeClaim:
+            claimName: coordinate-nginx-logs
+      containers:
+        - name: nginx
+          image: 'quay.io/jitesoft/nginx:stable'
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          ports:
+          - containerPort: 8080
+          volumeMounts:
+          - name: nginx-config
+            mountPath: /etc/nginx/conf.d
+          - name: logs
+            mountPath: /usr/local/nginx/logs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: coordinate-nginx-logs
+  namespace: elasticsearch-demo-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: kibana
+  namespace: elasticsearch-demo-app
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
+  labels:
+    app: elasticsearch
+    role: api
+spec:
+  host: kibana.apps.development.wels.home
+  to:
+    kind: Service
+    name: kibana-nginx-proxy
+  port:
+    targetPort: https
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: kibana-nginx-proxy
+  namespace: elasticsearch-demo-app
+spec:
+  ports:
+    - name: https
+      protocol: TCP
+      port: 443
+      targetPort: 8080
+  selector:
+    app: kibana-nginx-proxy
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: kibana-nginx-config
+  namespace: elasticsearch-demo-app
+data:
+  nginx.conf: |-
+    server {
+        listen 8080;
+        server_name kibana.apps.development.wels.home;
+
+        location / {
+            proxy_http_version 1.1;
+            proxy_ssl_verify       off;
+            proxy_ssl_server_name on;
+            proxy_pass https://kibana.apps.kvcluster2.apps.development.wels.home:443/;
+        }
+    }
+immutable: false
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana-nginx-proxy
+  namespace: elasticsearch-demo-app
+  labels:
+    app: kibana-nginx-proxy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana-nginx-proxy
+  template:
+    metadata:
+      labels:
+        app: kibana-nginx-proxy
+    spec:
+      volumes:
+        - configMap:
+            name: kibana-nginx-config
+          name: nginx-config
+        - name: logs
+          persistentVolumeClaim:
+            claimName: coordinate-nginx-logs
+      containers:
+        - name: nginx
+          image: 'quay.io/jitesoft/nginx:stable'
+          imagePullPolicy: IfNotPresent
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          ports:
+          - containerPort: 8080
+          volumeMounts:
+          - name: nginx-config
+            mountPath: /etc/nginx/conf.d
+          - name: logs
+            mountPath: /usr/local/nginx/logs
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: kibana-nginx-logs
+  namespace: elasticsearch-demo-app
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi
+

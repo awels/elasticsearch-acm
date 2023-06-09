@@ -1,0 +1,71 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kibana
+  namespace: elasticsearch-demo-app
+  annotations:
+    app.openshift.io/connects-to: '[{"apiVersion":"apps/v1","kind":"Deployment","name":"coordinate"}]'
+  labels:
+    app.kubernetes.io/part-of: kibana
+    app.openshift.io/runtime: elastic
+    app.openshift.io/name: kibana
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: kibana
+  template:
+    metadata:
+      labels:
+        app: kibana
+    spec:
+      containers:
+        - name: kibana
+          image: docker.elastic.co/kibana/kibana:8.7.0
+          ports:
+            - containerPort: 5601
+          env:
+            - name: ELASTICSEARCH_HOSTS
+              value: http://coordinate:9200
+            - name: SERVER_PUBLICBASEURL
+              # Route defined below
+              value: https://kibana-demo.apps.development.wels.home
+            - name: SERVER_NAME
+              # Route defined below
+              value: kibana-demo.apps.development.wels.home
+          resources: {}
+      restartPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: kibana
+  namespace: elasticsearch-demo-app
+spec:
+  ports:
+    - name: ui
+      port: 5601
+      targetPort: 5601
+  selector:
+    app: kibana
+---
+apiVersion: route.openshift.io/v1
+kind: Route
+metadata:
+  name: kibana
+  namespace: elasticsearch-demo-app
+  annotations:
+    cert-utils-operator.redhat-cop.io/certs-from-secret: letsencrypt
+spec:
+  host: kibana.apps.development.wels.home
+  to:
+    kind: Service
+    name: kibana
+  port:
+    targetPort: ui
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---

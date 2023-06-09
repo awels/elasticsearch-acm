@@ -1,0 +1,205 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: es-master00-conf
+  namespace: elasticsearch-demo-app
+data:
+  # Modify the Xms and Xmx values as appropriate for your application
+  # Modify the network.publish_host to match the service and namespace in your environment
+  elasticsearch.conf: |-
+    cluster.name: demo
+    node.name: es-master00
+    node.roles: [ master, data ]
+    network.host: _site_
+    network.publish_host: es-master00.elasticsearch-demo-app.svc.cluster.local
+    discovery.seed_hosts: ["es-master00"]
+    cluster.initial_master_nodes: ["es-master00"]
+    path.data: /srv/elasticsearch
+    path.logs: /var/log/elasticsearch
+    xpack.security.enabled: false
+    xpack.security.transport.ssl.enabled: false
+    xpack.security.http.ssl.enabled: false
+  jvm.options: |-
+    -Xms1024m
+    -Xmx1024m
+    -XX:+DisableExplicitGC
+    -XX:+UseParallelGC
+    -XX:+AlwaysPreTouch
+    -server
+    -Djava.awt.headless=true
+    -Dfile.encoding=UTF-8
+    -Djna.nosys=true
+    -Djdk.io.permissionsUseCanonicalPath=true
+    -Dio.netty.noUnsafe=true
+    -Dio.netty.noKeySetOptimization=true
+    -Dlog4j.shutdownHookEnabled=false
+    -Dlog4j2.disable.jmx=true
+    -Dlog4j.skipJansi=true
+    -XX:+HeapDumpOnOutOfMemoryError
+immutable: false
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: es-master00
+  namespace: elasticsearch-demo-app
+spec:
+  selector:
+    node: es-master00
+  ports:
+    - name: elasticsearch
+      protocol: TCP
+      port: 9200
+      targetPort: 9200
+    - name: elasticsearch-discovery
+      protocol: TCP
+      port: 9300
+      targetPort: 9300
+    - name: ssh
+      protocol: TCP
+      port: 22
+      targetPort: 22
+    - name: cockpit
+      protocol: TCP
+      port: 9090
+      targetPort: 9090
+---
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: es-master00
+  namespace: elasticsearch-demo-app
+spec:
+  # Modify this to match your environment
+  host: es-master00.apps.development.wels.home
+  to:
+    kind: Service
+    name: es-master00
+  port:
+    targetPort: cockpit
+  tls:
+    termination: passthrough
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+---
+apiVersion: kubevirt.io/v1
+kind: VirtualMachine
+metadata:
+  name: es-master00
+  namespace: elasticsearch-demo-app
+  labels:
+    app.kubernetes.io/part-of: elasticsearch
+spec:
+  dataVolumeTemplates:
+  - metadata:
+      name: es-master00
+      namespace: elasticsearch-demo-app
+    spec:
+      preallocation: false
+      sourceRef:
+          kind: DataSource
+          # Modify this to match available datasource in your environment
+          name: centos-stream9
+          namespace: openshift-virtualization-os-images
+      storage:
+          resources:
+              requests:
+                  # Modify this to match requirements for your environment
+                  storage: 10Gi
+  - metadata:
+      name: es-master00-data
+      namespace: elasticsearch-demo-app
+    spec:
+      preallocation: false
+      source:
+          blank: {}
+      storage:
+          resources:
+              requests:
+                  # Modify this to match requirements for your environment
+                  storage: 10Gi
+  running: true
+  template:
+    metadata:
+      annotations:
+        vm.kubevirt.io/os: rhel9
+        vm.kubevirt.io/workload: server
+      labels:
+        app: elasticsearch
+        node: es-master00
+        elasticsearch: master
+    spec:
+      domain:
+        cpu:
+          cores: 2
+          sockets: 1
+          threads: 2
+        devices:
+          disks:
+            - bootOrder: 1
+              disk:
+                bus: virtio
+              name: rootdisk
+            - disk:
+                bus: virtio
+              name: cloudinitdisk
+            - disk:
+                bus: virtio
+              name: elasticsearch-yaml
+              serial: 00yaml
+            - disk:
+                bus: virtio
+              name: install-scripts
+              serial: 0000sh
+            - disk:
+                bus: virtio
+              name: letsencrypt
+              serial: 00cert
+            - disk:
+                bus: virtio
+              name: data
+              serial: datadisk
+          interfaces:
+            - masquerade: {}
+              model: virtio
+              name: default
+        resources:
+          requests:
+            memory: 2Gi
+      networks:
+        - name: default
+          pod: {}
+      terminationGracePeriodSeconds: 180
+      volumes:
+        - dataVolume:
+            name: es-master00
+          name: rootdisk
+        - dataVolume:
+            name: es-master00-data
+          name: data
+        - cloudInitNoCloud:
+            userData: |-
+              #cloud-config
+              hostname: es-master00
+              runcmd:
+                - mount /dev/disk/by-id/virtio-0000sh /mnt/
+                - bash /mnt/system.sh
+                - bash /mnt/elasticsearch.sh
+                - umount /mnt
+              user: elasticsearch
+              password: redhat
+              chpasswd: { expire: False }
+              ssh_authorized_keys:
+               - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDQ0AJQlTvgiScYT+9bZUkBcnyg346jkag10isxaU5vy8TG9Jt+9jwQMOa21Quj0UPz5HxbXNBu2kRrU+2KUJEeCZU/hwKBuXRYWIND110yJCSQZKpQhiD/gmtY8B7pPnJSSrWf+e47X8XDRiuABPwbpK2vKdjx71abEGQTKHow2IXpzgF46k70YqKIowbvU0VCuCEQnCRSxmjg2A8mYQez0Z7cW9J9LUbI7JuOoE9b9U33oDauUcj3QhQzttllSgV0ma58Qha+kjR1+71RrVCrI+5+PoPbnlh5/J6NjxEVhu9rndkaprY7QhbAOfCqgr4XM35hxtyFtL66YNi4vREom9n/TZXQI0w6ojRlzd1d4na5U1IiJw+AS3tAMXnpgBIVR1mvmyd8OF2VHS2iOOk9ApCs/Vuq5k200cE2jeptuppNLaSD21TjpK6Bz60kXPrz+cjQwvU8rsE8P95M24kDgVztrY3yKEGy+1lBRoMaWpbImh3B5LQL3vKT0bkBxWE= awels@awels.wels.home
+          name: cloudinitdisk
+        - configMap:
+            name: es-master00-conf
+          name: elasticsearch-yaml
+        - configMap:
+            name: install-scripts
+          name: install-scripts
+        - secret:
+            secretName: letsencrypt
+          name: letsencrypt
+---

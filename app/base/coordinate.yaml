@@ -53,12 +53,16 @@ spec:
           - name: cluster.name
             value: demo
           - name: xpack.security.enabled
+            # Set to true to enable security
             value: "false"
           - name: xpack.security.transport.ssl.enabled
+            # Set to true to enable ssl for transport
             value: "false"
           - name: xpack.security.http.ssl.enabled
+            # Set to true to enable ssl for http
             value: "false"
           - name: discovery.seed_hosts
+            # If multiple VMs, add more here with a comma separated list
             value: es-master00
           - name: node.roles
             value: "[]"

@@ -22,7 +22,7 @@ metadata:
   name: coordinate
   namespace: elasticsearch-demo-app
   annotations:
-    app.openshift.io/connects-to: '[{"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","name":"es-main00"}]'
+    app.openshift.io/connects-to: '[{"apiVersion":"kubevirt.io/v1","kind":"VirtualMachine","name":"es-master00"}]'
   labels:
     app.kubernetes.io/part-of: elasticsearch
     app.openshift.io/runtime: elastic
@@ -63,7 +63,7 @@ spec:
             value: "false"
           - name: discovery.seed_hosts
             # If multiple VMs, add more here with a comma separated list
-            value: es-main00
+            value: es-master00
           - name: node.roles
             value: "[]"
           - name: network.publish_host

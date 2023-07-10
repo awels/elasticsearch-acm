@@ -50,7 +50,7 @@ spec:
         command:
           ["/bin/sh"]
         args: ["-c",
-      "oc patch pvc es-main00-data --type=json -p=\"[{'op':'remove', 'path':'/metadata/ownerReferences'}]\" || true && oc patch pvc es-main00 --type=json -p=\"[{'op':'remove', 'path':'/metadata/ownerReferences'}]\" || true"]
+      "oc patch pvc es-master00-data --type=json -p=\"[{'op':'remove', 'path':'/metadata/ownerReferences'}]\" || true && oc patch pvc es-master00 --type=json -p=\"[{'op':'remove', 'path':'/metadata/ownerReferences'}]\" || true"]
         imagePullPolicy: IfNotPresent
         name: oc
 

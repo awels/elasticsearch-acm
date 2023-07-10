@@ -1,10 +1,10 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: es-master00
+  name: es-main00
   namespace: elasticsearch-demo-app
 spec:
-  sourcePVC: es-master00
+  sourcePVC: es-main00
   trigger:
     # Replicate every 5 minutes
     schedule: "*/5 * * * *"
@@ -20,10 +20,10 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationSource
 metadata:
-  name: es-master00-data
+  name: es-main00-data
   namespace: elasticsearch-demo-app
 spec:
-  sourcePVC: es-master00-data
+  sourcePVC: es-main00-data
   trigger:
     # Replicate every 5 minutes
     schedule: "*/5 * * * *"

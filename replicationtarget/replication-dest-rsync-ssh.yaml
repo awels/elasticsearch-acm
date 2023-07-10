@@ -1,12 +1,12 @@
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: es-master00
+  name: es-main00
   namespace: elasticsearch-demo-app
 spec:
   rsync:
     sshKeys: volsync-rsync-dst-dest-ssh
-    destinationPVC: es-master00
+    destinationPVC: es-main00
     serviceType: LoadBalancer
     copyMethod: Snapshot
     capacity: 10Gi
@@ -17,12 +17,12 @@ spec:
 apiVersion: volsync.backube/v1alpha1
 kind: ReplicationDestination
 metadata:
-  name: es-master00-data
+  name: es-main00-data
   namespace: elasticsearch-demo-app
 spec:
   rsync:
     sshKeys: volsync-rsync-dst-dest-ssh
-    destinationPVC: es-master00-data
+    destinationPVC: es-main00-data
     serviceType: LoadBalancer
     copyMethod: Snapshot
     capacity: 10Gi

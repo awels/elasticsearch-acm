@@ -9,7 +9,7 @@ metadata:
 kind: Service
 apiVersion: v1
 metadata:
-  name: es-master-svc
+  name: es-main-svc
   namespace: elasticsearch-demo-app
 spec:
   ports:
@@ -19,7 +19,7 @@ spec:
       targetPort: 9200
   selector:
     app: elasticsearch
-    elasticsearch: master
+    elasticsearch: main
 ---
 kind: Route
 apiVersion: route.openshift.io/v1
@@ -35,7 +35,7 @@ spec:
   host: elasticsearch.apps.development.wels.home
   to:
     kind: Service
-    name: es-master-svc
+    name: es-main-svc
   port:
     targetPort: elasticsearch
   tls:

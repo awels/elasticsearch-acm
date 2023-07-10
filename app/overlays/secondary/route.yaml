@@ -25,8 +25,8 @@ spec:
 apiVersion: route.openshift.io/v1
 kind: Route
 metadata:
-  name: es-master00
+  name: es-main00
   namespace: elasticsearch-demo-app
 spec:
-  host: es-master00.apps.kvcluster2.apps.development.wels.home
+  host: es-main00.apps.kvcluster2.apps.development.wels.home
 

@@ -1,0 +1,27 @@
+# permissions for end users to view replicationdestinations.
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  labels:
+    app.kubernetes.io/name: clusterrole
+    app.kubernetes.io/instance: replicationdestination-viewer-role
+    app.kubernetes.io/component: rbac
+    app.kubernetes.io/created-by: volsync
+    app.kubernetes.io/part-of: volsync
+    app.kubernetes.io/managed-by: kustomize
+  name: replicationdestination-viewer-role
+rules:
+- apiGroups:
+  - volsync.backube
+  resources:
+  - replicationdestinations
+  verbs:
+  - get
+  - list
+  - watch
+- apiGroups:
+  - volsync.backube
+  resources:
+  - replicationdestinations/status
+  verbs:
+  - get

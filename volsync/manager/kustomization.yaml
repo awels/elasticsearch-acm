@@ -1,0 +1,50 @@
+resources:
+- manager.yaml
+
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+images:
+- name: controller
+  newName: quay.io/awels/volsync
+  newTag: latest
+patches:
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: RELATED_IMAGE_RSYNC_CONTAINER
+        value: quay.io/awels/volsync:latest
+  target:
+    kind: Deployment
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: RELATED_IMAGE_RSYNC_TLS_CONTAINER
+        value: quay.io/awels/volsync:latest
+  target:
+    kind: Deployment
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: RELATED_IMAGE_RCLONE_CONTAINER
+        value: quay.io/awels/volsync:latest
+  target:
+    kind: Deployment
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: RELATED_IMAGE_RESTIC_CONTAINER
+        value: quay.io/awels/volsync:latest
+  target:
+    kind: Deployment
+- patch: |-
+    - op: add
+      path: /spec/template/spec/containers/0/env/-
+      value:
+        name: RELATED_IMAGE_SYNCTHING_CONTAINER
+        value: quay.io/awels/volsync:latest
+  target:
+    kind: Deployment

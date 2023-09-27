@@ -99,7 +99,7 @@ spec:
       namespace: elasticsearch-demo-app
     spec:
       preallocation: false
-      volumeName: es-master00
+#      volumeName: es-master00
       sourceRef:
           kind: DataSource
           # Modify this to match available datasource in your environment

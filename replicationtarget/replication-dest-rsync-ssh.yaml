@@ -4,8 +4,8 @@ metadata:
   name: es-master00
   namespace: elasticsearch-demo-app
 spec:
-  rsync:
-    sshKeys: volsync-rsync-dst-dest-ssh
+  rsyncTLS:
+    keySecret: tls-key-secret-master00
     destinationPVC: es-master00
     serviceType: LoadBalancer
     copyMethod: Snapshot
@@ -20,8 +20,8 @@ metadata:
   name: es-master00-data
   namespace: elasticsearch-demo-app
 spec:
-  rsync:
-    sshKeys: volsync-rsync-dst-dest-ssh
+  rsyncTLS:
+    keySecret: tls-key-secret-data
     destinationPVC: es-master00-data
     serviceType: LoadBalancer
     copyMethod: Snapshot

@@ -8,9 +8,9 @@ spec:
   trigger:
     # Replicate every 5 minutes
     schedule: "*/5 * * * *"
-  rsync:
+  rsyncTLS:
     # The name of the Secret we just created
-    sshKeys: volsync-rsync-dst-src-ssh
+    keySecret: tls-key-secret-master00
     # The LoadBalancer address from the ReplicationDestination
     address: 192.168.1.37
     copyMethod: Snapshot
@@ -27,9 +27,9 @@ spec:
   trigger:
     # Replicate every 5 minutes
     schedule: "*/5 * * * *"
-  rsync:
+  rsyncTLS:
     # The name of the Secret we just created
-    sshKeys: volsync-rsync-dst-src-ssh
+    keySecret: tls-key-secret-data
     # The LoadBalancer address from the ReplicationDestination
     address: 192.168.1.36
     copyMethod: Snapshot
